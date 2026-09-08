@@ -1,0 +1,7 @@
+# Changelog
+
+## [0.1.0] — 2026-09-08
+- Initial scaffold: dual-mode (ats/modern) x dual-lang (ID/EN), 4 PDF outputs.
+- `config/order.tex` for section order/on-off, folder-per-variant templates.
+- `compile.sh` port from template-ta + `--check-ats` validation.
+- Minimal-modular sections: summary, education, experience, projects, skills (+ optional certifications, organizations).

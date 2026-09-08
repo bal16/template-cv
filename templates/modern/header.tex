@@ -1,0 +1,39 @@
+%==================================================================
+% Modern variant — header (DO NOT EDIT)
+% Photo optional via \ShowPhoto{true} in config/personal.tex.
+%==================================================================
+\ifthenelse{\equal{\ShowPhoto}{true}}{%
+  \noindent
+  \begin{minipage}{0.22\textwidth}
+    \IfFileExists{\photoPath}{%
+      \includegraphics[width=\textwidth]{\photoPath}%
+    }{%
+      \fbox{\parbox[c][3cm][c]{\textwidth}{\centering\SmallFontSize photo\\ \photoPath}}
+    }%
+  \end{minipage}\hfill
+  \begin{minipage}{0.74\textwidth}
+    {\NameFontSize \cvName \par}
+    {\SmallFontSize \cvTagline \par}\vspace{4pt}
+    {\SmallFontSize
+      \faMapMarker\ \cvLocation \\
+      \faPhone\ \cvPhone\enspace|\enspace\faEnvelope\ \href{mailto:\cvEmail}{\cvEmail} \\
+      \faGithub\ \href{https://\cvGithub}{\cvGithub}\enspace|\enspace
+      \faLinkedin\ \href{https://\cvLinkedin}{\cvLinkedin} \\
+      \faGlobe\ \href{https://\cvWebsite}{\cvWebsite}
+    \par}
+  \end{minipage}\par\vspace{4pt}
+}{%
+  \begin{center}
+    {\NameFontSize \cvName \par}
+    {\SmallFontSize \cvTagline \par}\vspace{2pt}
+    {\SmallFontSize
+      \faMapMarker\ \cvLocation\enspace|\enspace
+      \faPhone\ \cvPhone\enspace|\enspace
+      \faEnvelope\ \href{mailto:\cvEmail}{\cvEmail} \\
+      \faGithub\ \href{https://\cvGithub}{\cvGithub}\enspace|\enspace
+      \faLinkedin\ \href{https://\cvLinkedin}{\cvLinkedin}\enspace|\enspace
+      \faGlobe\ \href{https://\cvWebsite}{\cvWebsite}
+    \par}
+  \end{center}
+  \vspace{-4pt}
+}

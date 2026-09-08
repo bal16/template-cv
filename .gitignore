@@ -1,0 +1,29 @@
+# LaTeX output directory
+out/
+
+# Dependency cache
+.latex_deps_cache/
+
+# LaTeX compilation artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+
+# Package test files
+__package_test__.*
+
+# Real photo (keep placeholder out of git)
+assets/photo.jpg
+
+# macOS / editors
+.DS_Store
+.vscode/
+*.swp
+*.swo
+*~

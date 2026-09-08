@@ -1,0 +1,37 @@
+%==================================================================
+% ATS variant — preamble (DO NOT EDIT, ATS-strict package set)
+% Allowed: geometry, titlesec, enumitem, hyperref, setspace, ifthen.
+% Forbidden here: fontawesome5, tikz, multicol, background, photos.
+%==================================================================
+\input{templates/ats/style}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault} % clean sans, parser-friendly
+
+\usepackage{geometry}
+\geometry{left=\MarginSize, top=1.5cm, right=\MarginSize, bottom=1.5cm}
+
+\usepackage{titlesec}
+\titleformat{\section}{\SectionFontSize}{}{0pt}{}[\titlerule]
+\titlespacing*{\section}{0pt}{10pt}{4pt}
+
+\usepackage{enumitem}
+\setlist[itemize]{nosep, leftmargin=1.2em, topsep=2pt}
+\setlist[enumerate]{nosep, leftmargin=1.4em, topsep=2pt}
+
+\usepackage[hidelinks, pdftex, pdftitle={CV}, pdfauthor={CV}]{hyperref}
+\urlstyle{same}
+
+\usepackage{ifthen}
+
+% Shared CV helpers (ATS-safe: tabular*-free, single column)
+\newcommand{\datedEntry}[4]{%
+  \noindent\textbf{#1}\hfill{\SmallFontSize #2}\\%
+  {\SmallFontSize\textit{#3}\hfill\textit{#4}}\vspace{2pt}\par%
+}
+\newcommand{\cvRule}{\vspace{-2pt}}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
