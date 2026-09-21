@@ -54,7 +54,7 @@ show_usage() {
   echo -e "  $0 --all --check-ats   # build 4 PDFs + validate ATS ones"
   echo -e "  $0 --ats --en          # out/cv-ats-en.pdf"
   echo -e "  $0 --modern --id       # out/cv-modern-id.pdf"
-  echo -e "  $0 --ats --watch       # live rebuild out/cv-ats-watch.pdf"
+  echo -e "  $0 --ats --watch       # live rebuild out/cv-ats-en.pdf (uses --id/--en selection)"
 }
 
 log_message() {
@@ -132,9 +132,15 @@ do_build_all() {
 }
 
 if [ "$WATCH" = true ]; then
+  if [ "$BUILD_ALL" = true ]; then
+    echo -e "${RED}--watch cannot be combined with --all; use --ats/--modern --id/--en to pick one target${NC}"; exit 1
+  fi
   dtlower=$(echo "$WANT_DOCTYPE" | tr '[:upper:]' '[:lower:]')
   lglower=$(echo "$WANT_LANG" | tr '[:upper:]' '[:lower:]')
-  WATCH_JOB="cv-$dtlower-watch"
+  [ -d "templates/$dtlower" ] || { echo -e "${RED}Unknown variant templates/$dtlower${NC}"; exit 1; }
+  [ -d "sections/$lglower" ] || { echo -e "${RED}Unknown lang sections/$lglower${NC}"; exit 1; }
+  WATCH_JOB="cv-$dtlower-$lglower"
+  log_message 1 "${BLUE}" "Watch target: $WANT_DOCTYPE/$WANT_LANG -> $OUT_DIR/$WATCH_JOB.pdf"
   run_watch "$WATCH_JOB" "$dtlower" "$lglower" || log_message 1 "${RED}" "Initial watch build failed."
   log_message 1 "${GREEN}" "Watching every ${WATCH_INTERVAL}s -> $OUT_DIR/$WATCH_JOB.pdf (Ctrl+C stop)"
   exit 0
