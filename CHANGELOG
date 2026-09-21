@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+- Header ATS/Modern: separator `|` kondisional — field yang di-`%` di `config/personal.tex` otomatis hilang separatornya, tanpa `Undefined control sequence`.
+- Banner links dipecah jadi `Url` (href) vs `Label` (tampilan); file lama dengan `\cvGithub` dkk tetap compile via bridge legacy.
+- Helper `\cvLink{bare-url}{label}` + contoh multi-link (`repo \cvSep demo`) di `sections/en|id/projects.tex`, terverifikasi clickable (6 link annots).
+- Watch mode: job `cv-<variant>-<lang>`, validasi target, `--all --watch` ditolak eksplisit.
+
 ## [0.1.0] — 2026-09-08
 - Initial scaffold: dual-mode (ats/modern) x dual-lang (ID/EN), 4 PDF outputs.
 - `config/order.tex` for section order/on-off, folder-per-variant templates.
