@@ -36,6 +36,11 @@ sudo pacman -S texlive-basic texlive-latexrecommended texlive-latexextra \
   texlive-fontsrecommended texlive-fontsextra poppler
 # - fontsextra: fontawesome5 (mode Modern) | fontsrecommended: lmodern (mode ATS)
 
+# Nix (reproducible, tanpa install manual)
+nix develop   # flakes (experimental-features = nix-command flakes)
+nix-shell     # klasik, tanpa setting tambahan
+# → pdflatex + poppler siap, langsung ./compile.sh --all --check-ats
+
 # Debian / Ubuntu
 sudo apt install texlive-latex-recommended texlive-latex-extra \
   texlive-fonts-recommended lmodern poppler-utils

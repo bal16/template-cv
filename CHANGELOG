@@ -10,6 +10,8 @@
 - Shell completions for `compile.sh` (zsh + bash): installer script, conflict-aware
   suggestions, optional direnv support. `--academic` deliberately not suggested
   until `templates/academic/` exists.
+- Nix: reproducible devShell via `flake.nix` + `shell.nix` fallback
+  (`nix/tex.nix` shared package list); `flake.lock` to be committed on first use.
 
 ## [0.1.0] — 2026-09-08
 - Initial scaffold: dual-mode (ats/modern) x dual-lang (ID/EN), 4 PDF outputs.
