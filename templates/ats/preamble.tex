@@ -26,6 +26,50 @@
 
 \usepackage{ifthen}
 
+% --- Contact fallbacks: %-commented fields in config/personal.tex = empty ---
+\providecommand{\cvName}{}
+\providecommand{\cvTagline}{}
+\providecommand{\cvLocation}{}
+\providecommand{\cvPhone}{}
+\providecommand{\cvEmail}{}
+% Legacy single-field names (backward compat with old personal.tex)
+\providecommand{\cvGithub}{}
+\providecommand{\cvLinkedin}{}
+\providecommand{\cvWebsite}{}
+% New Url/Label pairs (alias support: href uses Url, display uses Label)
+\providecommand{\cvGithubUrl}{}
+\providecommand{\cvGithubLabel}{}
+\providecommand{\cvLinkedinUrl}{}
+\providecommand{\cvLinkedinLabel}{}
+\providecommand{\cvWebsiteUrl}{}
+\providecommand{\cvWebsiteLabel}{}
+% Bridge legacy -> Url/Label when only old names are defined
+\ifthenelse{\equal{\cvGithubUrl}{}}{%
+  \ifthenelse{\equal{\cvGithub}{}}{}{\renewcommand{\cvGithubUrl}{\cvGithub}}%
+}{}
+\ifthenelse{\equal{\cvGithubLabel}{}}{%
+  \ifthenelse{\equal{\cvGithubUrl}{}}{}{\renewcommand{\cvGithubLabel}{\cvGithubUrl}}%
+}{}
+\ifthenelse{\equal{\cvLinkedinUrl}{}}{%
+  \ifthenelse{\equal{\cvLinkedin}{}}{}{\renewcommand{\cvLinkedinUrl}{\cvLinkedin}}%
+}{}
+\ifthenelse{\equal{\cvLinkedinLabel}{}}{%
+  \ifthenelse{\equal{\cvLinkedinUrl}{}}{}{\renewcommand{\cvLinkedinLabel}{\cvLinkedinUrl}}%
+}{}
+\ifthenelse{\equal{\cvWebsiteUrl}{}}{%
+  \ifthenelse{\equal{\cvWebsite}{}}{}{\renewcommand{\cvWebsiteUrl}{\cvWebsite}}%
+}{}
+\ifthenelse{\equal{\cvWebsiteLabel}{}}{%
+  \ifthenelse{\equal{\cvWebsiteUrl}{}}{}{\renewcommand{\cvWebsiteLabel}{\cvWebsiteUrl}}%
+}{}
+
+% --- Separator + conditional join + clickable-link helpers (ATS-safe) ---
+\newcommand{\cvSep}{\enspace\textbar\enspace}
+\newif\ifcvNeedSep
+\newcommand{\cvItem}[1]{\ifcvNeedSep\cvSep\fi#1\cvNeedSeptrue}
+% \cvLink{bare-url}{label} — pass bare domain (no https://), joins with \cvSep
+\newcommand{\cvLink}[2]{\href{https://#1}{#2}}
+
 % Shared CV helpers (ATS-safe: tabular*-free, single column)
 \newcommand{\datedEntry}[4]{%
   \noindent\textbf{#1}\hfill{\SmallFontSize #2}\\%
