@@ -24,6 +24,34 @@ template-cv/
 └── out/                    # hasil PDF (git-ignored)
 ```
 
+## Prerequisites
+
+Wajib: TeX Live (`pdflatex`). Opsional: poppler (`pdftotext` + `pdfinfo`,
+hanya untuk `--check-ats`). Paket LaTeX yang hilang dicoba di-install
+otomatis via `tlmgr` (atau pakai `--skip-deps` untuk bypass cek).
+
+```bash
+# Arch Linux (preferensi repo ini)
+sudo pacman -S texlive-basic texlive-latexrecommended texlive-latexextra \
+  texlive-fontsrecommended texlive-fontsextra poppler
+# - fontsextra: fontawesome5 (mode Modern) | fontsrecommended: lmodern (mode ATS)
+
+# Debian / Ubuntu
+sudo apt install texlive-latex-recommended texlive-latex-extra \
+  texlive-fonts-recommended lmodern poppler-utils
+
+# Fedora
+sudo dnf install texlive-scheme-medium texlive-fontawesome5 lmodern poppler-utils
+
+# macOS (Homebrew)
+brew install --cask mactex-no-gui   # TeX Live lengkap
+brew install poppler                 # untuk --check-ats
+
+# Windows: install MiKTeX atau TeX Live, paket di-install otomatis saat compile.
+```
+
+Tanpa install lokal: pakai Overleaf (lihat bawah) — cukup upload zip.
+
 ## Quick start
 
 ```bash

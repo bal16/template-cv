@@ -66,7 +66,11 @@ check_dependencies() {
     log_message 3 "${GREEN}" "Using cached dependency info"
     return 0
   fi
-  command_exists pdflatex || { log_message 1 "${RED}" "pdflatex not found. Install TeX Live."; return 1; }
+  command_exists pdflatex || { log_message 1 "${RED}" "pdflatex not found. Install TeX Live (see README.md Prerequisites)."; return 1; }
+  if [ "${CHECK_ATS:-false}" = true ]; then
+    command_exists pdftotext || { log_message 1 "${RED}" "pdftotext not found. Install poppler (see README.md Prerequisites) for --check-ats."; return 1; }
+    command_exists pdfinfo || { log_message 1 "${RED}" "pdfinfo not found. Install poppler (see README.md Prerequisites) for --check-ats."; return 1; }
+  fi
   local missing=() failed=() p
   for p in "${REQUIRED_PACKAGES[@]}"; do
     check_latex_package "$p" || missing+=("$p")
