@@ -27,3 +27,7 @@ assets/photo.jpg
 *.swp
 *.swo
 *~
+
+# direnv (local state, jangan commit)
+.direnv/
+.envrc.local
