@@ -2,10 +2,10 @@
 
 Dual-mode x dual-bahasa, meniru pola `@template-ta/`:
 
-| | ID | EN |
-|---|---|---|
-| ATS (portal: Workday/Taleo/Greenhouse) | `out/cv-ats-id.pdf` | `out/cv-ats-en.pdf` |
-| Modern (email/networking/lokal) | `out/cv-modern-id.pdf` | `out/cv-modern-en.pdf` |
+|                                        | ID                     | EN                     |
+| -------------------------------------- | ---------------------- | ---------------------- |
+| ATS (portal: Workday/Taleo/Greenhouse) | `out/cv-ats-id.pdf`    | `out/cv-ats-en.pdf`    |
+| Modern (email/networking/lokal)        | `out/cv-modern-id.pdf` | `out/cv-modern-en.pdf` |
 
 ## Struktur
 
