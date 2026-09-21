@@ -1,12 +1,15 @@
 # Changelog
 
 ## [Unreleased]
-- Header ATS/Modern: separator `|` kondisional — field yang di-`%` di `config/personal.tex` otomatis hilang separatornya, tanpa `Undefined control sequence`.
-- Banner links dipecah jadi `Url` (href) vs `Label` (tampilan); file lama dengan `\cvGithub` dkk tetap compile via bridge legacy.
-- Helper `\cvLink{bare-url}{label}` + contoh multi-link (`repo \cvSep demo`) di `sections/en|id/projects.tex`, terverifikasi clickable (6 link annots).
-- Watch mode: job `cv-<variant>-<lang>`, validasi target, `--all --watch` ditolak eksplisit.
-- Docs: section Prerequisites di README (Arch, Debian/Ubuntu, Fedora, macOS,
-  Windows) + cek `pdftotext`/`pdfinfo` eksplisit saat `--check-ats`.
+- ATS/Modern headers: conditional `|` separator — fields `%`-commented out in `config/personal.tex` automatically lose their separator, no `Undefined control sequence`.
+- Banner links split into `Url` (href) vs `Label` (display); old files using `\cvGithub` etc. still compile via the legacy bridge.
+- `\cvLink{bare-url}{label}` helper + multi-link examples (`repo \cvSep demo`) in `sections/en|id/projects.tex`, verified clickable (6 link annots).
+- Watch mode: job `cv-<variant>-<lang>`, target validation, `--all --watch` explicitly rejected.
+- Docs: Prerequisites section in README (Arch, Debian/Ubuntu, Fedora, macOS,
+  Windows) + explicit `pdftotext`/`pdfinfo` check during `--check-ats`.
+- Shell completions for `compile.sh` (zsh + bash): installer script, conflict-aware
+  suggestions, optional direnv support. `--academic` deliberately not suggested
+  until `templates/academic/` exists.
 
 ## [0.1.0] — 2026-09-08
 - Initial scaffold: dual-mode (ats/modern) x dual-lang (ID/EN), 4 PDF outputs.
