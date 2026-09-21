@@ -1,18 +1,23 @@
 %==================================================================
 % ATS variant — header (DO NOT EDIT)
 % Name + tagline + single-line contact. No photo, no icons, no tables.
+% Fields disabled with % in config/personal.tex are skipped, "|" auto-hides.
 %==================================================================
 \begin{center}
   {\NameFontSize \cvName \par}
-  \vspace{2pt}
-  {\SmallFontSize \cvTagline \par}
+  \ifthenelse{\equal{\cvTagline}{}}{}{\vspace{2pt}{\SmallFontSize \cvTagline \par}}
   \vspace{2pt}
   {\SmallFontSize
-    \cvLocation\enspace|\enspace\cvPhone\enspace|\enspace
-    \href{mailto:\cvEmail}{\cvEmail} \\
-    \href{https://\cvGithub}{\cvGithub}\enspace|\enspace
-    \href{https://\cvLinkedin}{\cvLinkedin}\enspace|\enspace
-    \href{https://\cvWebsite}{\cvWebsite}
+    \cvNeedSepfalse
+    \ifthenelse{\equal{\cvLocation}{}}{}{\cvItem{\cvLocation}}%
+    \ifthenelse{\equal{\cvPhone}{}}{}{\cvItem{\cvPhone}}%
+    \ifthenelse{\equal{\cvEmail}{}}{}{\cvItem{\href{mailto:\cvEmail}{\cvEmail}}}%
+    \ifthenelse{\equal{\cvGithubUrl}{}\AND\equal{\cvLinkedinUrl}{}\AND\equal{\cvWebsiteUrl}{}}{}{%
+      \ifcvNeedSep\\\cvNeedSepfalse\fi
+      \ifthenelse{\equal{\cvGithubUrl}{}}{}{\cvItem{\href{https://\cvGithubUrl}{\cvGithubLabel}}}%
+      \ifthenelse{\equal{\cvLinkedinUrl}{}}{}{\cvItem{\href{https://\cvLinkedinUrl}{\cvLinkedinLabel}}}%
+      \ifthenelse{\equal{\cvWebsiteUrl}{}}{}{\cvItem{\href{https://\cvWebsiteUrl}{\cvWebsiteLabel}}}%
+    }%
   \par}
 \end{center}
 \vspace{-4pt}

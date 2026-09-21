@@ -1,6 +1,7 @@
 %==================================================================
 % Modern variant — header (DO NOT EDIT)
 % Photo optional via \ShowPhoto{true} in config/personal.tex.
+% Fields disabled with % in config/personal.tex are skipped, "|" auto-hides.
 %==================================================================
 \ifthenelse{\equal{\ShowPhoto}{true}}{%
   \noindent
@@ -13,26 +14,36 @@
   \end{minipage}\hfill
   \begin{minipage}{0.74\textwidth}
     {\NameFontSize \cvName \par}
-    {\SmallFontSize \cvTagline \par}\vspace{4pt}
+    \ifthenelse{\equal{\cvTagline}{}}{}{{\SmallFontSize \cvTagline \par}}\vspace{4pt}
     {\SmallFontSize
-      \faMapMarker\ \cvLocation \\
-      \faPhone\ \cvPhone\enspace|\enspace\faEnvelope\ \href{mailto:\cvEmail}{\cvEmail} \\
-      \faGithub\ \href{https://\cvGithub}{\cvGithub}\enspace|\enspace
-      \faLinkedin\ \href{https://\cvLinkedin}{\cvLinkedin} \\
-      \faGlobe\ \href{https://\cvWebsite}{\cvWebsite}
+      \cvNeedSepfalse
+      \ifthenelse{\equal{\cvLocation}{}}{}{\cvItem{\faMapMarker\ \cvLocation}}%
+      \ifthenelse{\equal{\cvPhone}{}}{}{\cvItem{\faPhone\ \cvPhone}}%
+      \ifthenelse{\equal{\cvEmail}{}}{}{\cvItem{\faEnvelope\ \href{mailto:\cvEmail}{\cvEmail}}}%
+      \ifthenelse{\equal{\cvGithubUrl}{}\AND\equal{\cvLinkedinUrl}{}\AND\equal{\cvWebsiteUrl}{}}{}{%
+        \ifcvNeedSep\\\cvNeedSepfalse\fi
+        \ifthenelse{\equal{\cvGithubUrl}{}}{}{\cvItem{\faGithub\ \href{https://\cvGithubUrl}{\cvGithubLabel}}}%
+        \ifthenelse{\equal{\cvLinkedinUrl}{}}{}{\cvItem{\faLinkedin\ \href{https://\cvLinkedinUrl}{\cvLinkedinLabel}}}%
+        \ifthenelse{\equal{\cvWebsiteUrl}{}}{}{\cvItem{\faGlobe\ \href{https://\cvWebsiteUrl}{\cvWebsiteLabel}}}%
+      }%
     \par}
   \end{minipage}\par\vspace{4pt}
 }{%
   \begin{center}
     {\NameFontSize \cvName \par}
-    {\SmallFontSize \cvTagline \par}\vspace{2pt}
+    \ifthenelse{\equal{\cvTagline}{}}{}{\vspace{2pt}{\SmallFontSize \cvTagline \par}}
+    \vspace{2pt}
     {\SmallFontSize
-      \faMapMarker\ \cvLocation\enspace|\enspace
-      \faPhone\ \cvPhone\enspace|\enspace
-      \faEnvelope\ \href{mailto:\cvEmail}{\cvEmail} \\
-      \faGithub\ \href{https://\cvGithub}{\cvGithub}\enspace|\enspace
-      \faLinkedin\ \href{https://\cvLinkedin}{\cvLinkedin}\enspace|\enspace
-      \faGlobe\ \href{https://\cvWebsite}{\cvWebsite}
+      \cvNeedSepfalse
+      \ifthenelse{\equal{\cvLocation}{}}{}{\cvItem{\faMapMarker\ \cvLocation}}%
+      \ifthenelse{\equal{\cvPhone}{}}{}{\cvItem{\faPhone\ \cvPhone}}%
+      \ifthenelse{\equal{\cvEmail}{}}{}{\cvItem{\faEnvelope\ \href{mailto:\cvEmail}{\cvEmail}}}%
+      \ifthenelse{\equal{\cvGithubUrl}{}\AND\equal{\cvLinkedinUrl}{}\AND\equal{\cvWebsiteUrl}{}}{}{%
+        \ifcvNeedSep\\\cvNeedSepfalse\fi
+        \ifthenelse{\equal{\cvGithubUrl}{}}{}{\cvItem{\faGithub\ \href{https://\cvGithubUrl}{\cvGithubLabel}}}%
+        \ifthenelse{\equal{\cvLinkedinUrl}{}}{}{\cvItem{\faLinkedin\ \href{https://\cvLinkedinUrl}{\cvLinkedinLabel}}}%
+        \ifthenelse{\equal{\cvWebsiteUrl}{}}{}{\cvItem{\faGlobe\ \href{https://\cvWebsiteUrl}{\cvWebsiteLabel}}}%
+      }%
     \par}
   \end{center}
   \vspace{-4pt}
