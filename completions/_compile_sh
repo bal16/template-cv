@@ -1,25 +1,79 @@
 #compdef compile.sh ./compile.sh compile
 # zsh completion for compile.sh (LaTeX CV Compilation Script)
 #
-# Install (repo-local, zsh — add to ~/.zshrc, then rm -f ~/.zcompdump; exec zsh):
-#   fpath=(/path/to/template-cv/completions $fpath)
-#   autoload -Uz compinit && compinit
+# Install — pick one:
+#   A) Manual (no dependency, permanent):
+#     fpath=(/path/to/cv-main/completions $fpath)
+#     autoload -Uz compinit && compinit
+#   B) Installer: ./completions/install.sh  (then rm -f ~/.zcompdump; exec zsh)
+#   C) direnv (optional): direnv allow  — see completions/README.md
+#
+# Mirrors the flags in compile.sh; --watch conflicts with --all/--clean/--clear-cache.
+# NOTE: specs MUST use colon format `opt:desc` (_describe language). Do NOT use
+# bracket format `opt[desc]` (that is _arguments language): _describe does not
+# parse it, so the `[desc]` text would be inserted into the command line.
+# NOTE: --academic is intentionally NOT suggested: compile.sh parses it but
+# templates/academic/ does not exist yet (see templates/README.md). Re-add it
+# once the academic variant is built (colon format too).
 
 _compile_sh() {
   local -a opts
+  # NOTE: never `local words` — `words` is a global array owned by the zsh
+  # completion system; shadowing it breaks conflict filtering.
+  local has_watch=0 has_all=0 has_clean=0 has_clear=0 w _c
+  for w in "${words[@]}"; do
+    case "$w" in
+      --watch) has_watch=1 ;;
+      --all) has_all=1 ;;
+      --clean) has_clean=1 ;;
+      --clear-cache) has_clear=1 ;;
+    esac
+  done
+
   opts=(
-    '-h[Show help]' '--help[Show help]'
-    '-q[Quiet mode]' '--quiet[Quiet mode]'
-    '-v[Verbose mode]' '--verbose[Verbose mode]'
-    '--debug[Debug mode]' '--error-only[Errors only]'
-    '--warning[Warnings and errors]' '--final-warnings[Final warnings only]' '--info[Info level]'
-    '--ats[ATS variant]' '--modern[Modern variant]'
-    '--id[Bahasa Indonesia]' '--en[English]'
-    '--all[Build all 4 PDFs]' '--check-ats[Validate ATS PDFs]'
-    '--watch[Watch and rebuild]' '--clean[Clean temp files]'
-    '--skip-deps[Skip dependency check]' '--force-deps-check[Force recheck]' '--clear-cache[Clear cache]'
+    '-h:Show help' '--help:Show help'
+    '-q:Quiet mode' '--quiet:Quiet mode'
+    '-v:Verbose mode' '--verbose:Verbose mode'
+    '--debug:Debug mode' '--error-only:Errors only'
+    '--warning:Warnings and errors' '--final-warnings:Final warnings only' '--info:Info level'
+    '--ats:ATS variant' '--modern:Modern variant'
+    '--id:Indonesian' '--en:English'
+    '--check-ats:Validate ATS PDFs'
+    '--skip-deps:Skip dependency check' '--force-deps-check:Force recheck'
   )
+
+  # Mutually exclusive with --watch (see compile.sh: --watch vs --all/--clean/--clear-cache)
+  if (( has_watch )); then
+    : # do not suggest --all/--clean/--clear-cache
+  else
+    opts+=('--all:Build all 4 PDFs')
+  fi
+  if (( has_watch || has_all || has_clear )); then
+    : # --clean conflicts with all three (watch explicitly, all/clear-cache in practice)
+  else
+    opts+=('--clean:Clean temp files and exit')
+  fi
+  if (( has_watch || has_clean )); then
+    :
+  else
+    opts+=('--clear-cache:Clear dependency cache and exit')
+  fi
+  if (( has_all || has_clean || has_clear )); then
+    :
+  else
+    opts+=('--watch:Watch and rebuild')
+  fi
+
+  # Self-styling a la `bun completions`: green group header, single group.
+# Narrowly scoped to our three command names — never touches global user config.
+# (%d = the _describe label below, rendered as `-- compile.sh options --`.)
+for _c in compile 'compile.sh' './compile.sh'; do
+  zstyle ":completion:*:*:${_c}:*" group-name ''
+  zstyle ":completion:*:*:${_c}:*" format '%F{green}-- %d --%f'
+done
+
   _describe 'compile.sh options' opts
 }
-_compile_sh "$@"
+# NOTE: no direct call here — this file is loaded via compinit autoload
+# (function name = file name); calling it directly breaks loading.
 # vim: ft=zsh
