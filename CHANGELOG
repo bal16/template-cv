@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.2.1] — 2026-09-21
+- Docs: restructure README owner-first in Indonesian (usage up front,
+  developer docs below), updated repo tree, linked completions/templates guides.
+
 ## [0.2.0] — 2026-09-21
 - ATS/Modern headers: conditional `|` separator — fields `%`-commented out in `config/personal.tex` automatically lose their separator, no `Undefined control sequence`.
 - Banner links split into `Url` (href) vs `Label` (display); old files using `\cvGithub` etc. still compile via the legacy bridge.
